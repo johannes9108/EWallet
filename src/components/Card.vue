@@ -1,19 +1,19 @@
 <template>
-  <div class="card" v-bind:style="position">
+  <div class="card" v-bind:style="position" v-bind:class="[cardInfo.vendor]" @click="setActive()">
     <div class="icons">
-      <img src="@/assets/chip-dark.svg" alt />
-      <img src="@/assets/vendor-bitcoin.svg" alt />
+      <img v-bind:src="getChip()" alt />
+      <img :src="getVendor()" alt />
     </div>
     <div class="info">
-      <span class="cardNumber">1234 5678 9101 1123</span>
+      <span class="cardNumber">{{cardInfo.cardnumber}}</span>
       <div class="smallInfo">
         <div class="nameComponent">
           <span class="title">CARDHOLDER NAME</span>
-          <span class="name">CHRISTOPHER WALLENBERG</span>
+          <span class="name">{{cardInfo.name}}</span>
         </div>
         <div class="dateComponent">
           <span class="title">VALID THRU</span>
-          <span class="name">12/22</span>
+          <span class="name">{{cardInfo.validDate.month}}/{{cardInfo.validDate.year}}</span>
         </div>
       </div>
     </div>
@@ -38,6 +38,18 @@ export default {
     //   Evil,
     //   Ninja
   },
+  methods: {
+    getChip() {
+      return require("../assets/chip-light.svg");
+    },
+    getVendor() {
+      return require("../assets/vendor-" + this.cardInfo.vendor + ".svg");
+    },
+    setActive() {
+      console.log("1");
+      this.$root.setActive(this.cardInfo.id);
+    }
+  },
 
   props: {
     cardInfo: Object,
@@ -46,11 +58,23 @@ export default {
 };
 </script>
 <style>
+.bitcoin {
+  background: darkgray;
+}
+.blockchain {
+  background: darkred;
+}
+.evil {
+  background: darkgoldenrod;
+}
+.ninja {
+  background: darkblue;
+  color: white;
+}
 .card {
-  background-color: yellow;
+  /* background-color: yellow; */
   padding: 1rem;
-  border-radius: 2%;
-  box-shadow: 0px 0px 10px gray;
+  border-radius: 10px;
   width: 100%;
   display: grid;
   grid-template-rows: repeat(2, 1fr);
@@ -59,40 +83,40 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  background-color: red;
+  /* background-color: red; */
 }
 .info {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  background-color: grey;
+  /* background-color: grey; */
 }
 .cardNumber {
   font-size: 2rem;
 
-  background-color: aquamarine;
+  /* background-color: aquamarine; */
 }
 .smallInfo {
   display: flex;
   justify-content: space-between;
-  background-color: magenta;
+  /* background-color: magenta; */
 }
 .nameComponent {
   display: flex;
   flex-direction: column;
-  background-color: wheat;
+  /* background-color: wheat; */
 }
 .dateComponent {
   align-items: flex-end;
   display: flex;
   flex-direction: column;
-  background-color: lightcoral;
+  /* background-color: lightcoral; */
 }
 .title {
   font-size: 0.7rem;
-  background-color: lightseagreen;
+  /* background-color: lightseagreen; */
 }
 .name {
-  background-color: sienna;
+  /* background-color: sienna; */
 }
 </style>

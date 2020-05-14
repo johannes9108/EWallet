@@ -1,8 +1,12 @@
 <template>
   <div class="cardStack">
-    <Card v-bind:position="card1" />
-    <Card v-bind:position="card2" />
-    <Card v-bind:position="card3" />
+    <Card
+      v-for="(card,index) in this.$root.filteredData(this.$root.activeId)"
+      v-bind:style="{position: 'absolute', top: `${index*50}px`}"
+      v-bind:key="card.id"
+      :cardInfo="card"
+    />
+    <!-- :position="cardsPos[cardsPosIndex++]" -->
   </div>
 </template>
 <script>
@@ -13,22 +17,38 @@ export default {
   },
   data() {
     return {
-      card1: { position: "absolute", top: "0px" },
-      card2: { position: "absolute", top: "50px" },
-      card3: { position: "absolute", top: "100px", margin: "auto" },
-      items: 5
+      items: this.$root.data.length,
+      height: -1
     };
   },
-  created() {
-    //   let size = 200;
+  methods: {
+    // setActiveCard(activeId) {
+    //   console.log("2");
+    //   this.activeId = activeId;
+    // }
   },
+  beforeMount() {},
+  mounted() {
+    // let height = this.$el.clientHeight;
+    // console.log("Height: " + height);
+    // let distance = height / this.items;
+    // console.log("Distance: " + distance);
+    // this.card1.top = `${distance * 0}px`;
+    // this.card2.top = `${distance * 1}px`;
+    // this.card3.top = `${distance * 2}px`;
+    // this.card4.top = `${distance * 3}px`;
+    // this.card5.top = `${distance * 4}px`;
+    // this.card5.top = `${distance * 5}px`;
+  },
+
   props: {
-    stackHeight: Number
+    // stackHeight: Number
   }
 };
 </script>
 <style lang="scss" scoped>
 .cardStack {
+  overflow: auto;
   position: relative;
 }
 </style>
