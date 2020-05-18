@@ -6,7 +6,7 @@
       "name": "Johannes Hedman",
       "validDate": "1222",
       "ccv": "123",
-      "vendor": "ninja"
+      "vendor": 3
     },
     {
       "id": 2,
@@ -14,7 +14,7 @@
       "name": "Christoffer Wallenberg",
       "validDate": "1222",
       "ccv": "123",
-      "vendor": "bitcoin"
+      "vendor": 0
     },
     {
       "id": 3,
@@ -22,7 +22,7 @@
       "name": "Christoffer Hedman",
       "validDate": "1222",
       "ccv": "123",
-      "vendor": "blockchain"
+      "vendor": 1
     },
     {
       "id": 4,
@@ -30,7 +30,7 @@
       "name": "Johannes Wallenberg",
       "validDate": "1222",
       "ccv": "123",
-      "vendor": "evil"
+      "vendor": 2
     },
     {
       "id": 5,
@@ -38,7 +38,7 @@
       "name": "Christoffer Hedman",
       "validDate": "1222",
       "ccv": "123",
-      "vendor": "blockchain"
+      "vendor": 1
     },
     {
       "id": 6,
@@ -46,7 +46,117 @@
       "name": "Johannes Wallenberg",
       "validDate": "1222",
       "ccv": "123",
-      "vendor": "evil"
+      "vendor": 2
+    },
+    {
+      "id": 7,
+      "number": "1234567891234567",
+      "name": "Johannes Hedman",
+      "validDate": "1222",
+      "ccv": "123",
+      "vendor": 3
+    },
+    {
+      "id": 8,
+      "number": "1111222233334444",
+      "name": "Christoffer Wallenberg",
+      "validDate": "1222",
+      "ccv": "123",
+      "vendor": 0
+    },
+    {
+      "id": 9,
+      "number": "5555666677778888",
+      "name": "Christoffer Hedman",
+      "validDate": "1222",
+      "ccv": "123",
+      "vendor": 1
+    },
+    {
+      "id": 10,
+      "number": "9999888877776666",
+      "name": "Johannes Wallenberg",
+      "validDate": "1222",
+      "ccv": "123",
+      "vendor": 2
+    },
+    {
+      "id": 11,
+      "number": "5555666677778888",
+      "name": "Christoffer Hedman",
+      "validDate": "1222",
+      "ccv": "123",
+      "vendor": 1
+    },
+    {
+      "id": 12,
+      "number": "9999888877776666",
+      "name": "Johannes Wallenberg",
+      "validDate": "1222",
+      "ccv": "123",
+      "vendor": 2
+    }
+  ],
+  "vendors": [
+    {
+      "name": "bitcoin",
+      "backgroundColor": {
+        "red": 248,
+        "green": 162,
+        "blue": 34
+      },
+      "textColor": {
+        "red": 0,
+        "green": 0,
+        "blue": 0
+      },
+      "baseUrl": "../assets/vendor-bitcoin.svg",
+      "chipType": "dark"
+    },
+    {
+      "name": "blockchain",
+      "backgroundColor": {
+        "red": 137,
+        "green": 60,
+        "blue": 189
+      },
+      "textColor": {
+        "red": 255,
+        "green": 255,
+        "blue": 255
+      },
+      "baseUrl": "../assets/vendor-blockchain.svg",
+      "chipType": "light"
+    },
+    {
+      "name": "evil",
+      "backgroundColor": {
+        "red": 209,
+        "green": 24,
+        "blue": 24
+      },
+      "textColor": {
+        "red": 255,
+        "green": 255,
+        "blue": 255
+      },
+      "baseUrl": "../assets/vendor-evil.svg",
+      "chipType": "light"
+    },
+    {
+      "name": "ninja",
+      "backgroundColor": {
+        "red": 0,
+        "green": 0,
+        "blue": 0
+      },
+      "textColor": {
+        "red": 255,
+        "green": 255,
+        "blue": 255
+      },
+      "baseUrl": "../assets/vendor-ninja.svg",
+      "chipType": "light"
     }
   ]
 }

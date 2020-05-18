@@ -1,13 +1,8 @@
 <template>
-  <div class="cardForm">
+  <form class="cardForm">
     <div class="inputComponent">
       <span class="title">CARD NUMBER</span>
-      <input
-        type="number"
-        pattern="\d{12}"
-        v-model="formValues.number"
-        placeholder="XXXX XXXX XXXX XXXX"
-      />
+      <input type="number" v-model="formValues.number" placeholder="XXXX XXXX XXXX XXXX" />
     </div>
     <div class="inputComponent">
       <span class="title">CARHOLDER NAME</span>
@@ -25,17 +20,18 @@
     </div>
     <div class="inputComponent">
       <span class="title">VENDOR</span>
-      <select id="Vendors" @change="changeVendor()" v-model="formValues.vendor">
-        <option value="bitcoin">Bitcoin</option>
-        <option value="blockchain">Blockchain</option>
-        <option value="evil">Evil</option>
-        <option value="ninja">Ninja</option>
+      <select id="Vendors" v-model="formValues.vendor">
+        <option
+          v-for="(item,index) in this.$root.vendors"
+          :key="item.name"
+          :value="index"
+        >{{item.name}}</option>
       </select>
     </div>
     <div class="inputComponent">
       <button @click="checkValues()">Add Card</button>
     </div>
-  </div>
+  </form>
 </template>
 <script>
 export default {
@@ -49,13 +45,10 @@ export default {
   },
 
   methods: {
-    changeVendor() {
-      console.log(this.formValues.vendor);
-    },
     checkValues() {
       let incorrectValues = false;
-      if (this.formValues.number.length != 16) {
-        this.formValues.number = "";
+      if (this.formValues.number.length > 16) {
+        this.formValues.number = this.formValues.number.slice(0, 16);
         incorrectValues = true;
       }
       if (this.formValues.validDate.length != 4) {
