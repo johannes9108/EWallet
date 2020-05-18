@@ -1,67 +1,81 @@
 <template>
-  <div class="card" v-bind:style="position" v-bind:class="[cardInfo.vendor]" @click="setActive()">
-    <div class="icons">
-      <img v-bind:src="getChip()" alt />
-      <img :src="getVendor()" alt />
-    </div>
-    <div class="info">
-      <div class="numberComponent">
-        <span class="title">CARDNUMBER</span>
-        <!-- <span class="cardNumber"> -->
-        <!-- <span>6666</span>
-          <span>6666</span>
-          <span>6666</span>
-        <span>6666</span>-->
-        <StringFormatter :regex="format" :input="cardInfo.number" />
+  <div v-bind:class="{cardHolder: title}">
+    <p class="cardDescritpion" v-if="title">{{title}}</p>
+    <div
+      v-bind:class="[isHovered && cardInStack ? 'highlighted':'']"
+      :style="[getVendorData] "
+      class="card"
+      @click="setActive()"
+      @mouseover.capture.stop="enter()"
+      @mouseleave.capture.stop="exit()"
+    >
+      <div class="icons">
+        <img
+          :src="require('@/assets/chip-'+this.$root.vendors[this.cardInfo.vendor].chipType+'.svg')"
+          alt
+        />
+        <img
+          v-bind:src="require('@/assets/vendor-'+this.$root.vendors[this.cardInfo.vendor].name+'.svg')"
+          alt
+        />
       </div>
-      <div class="smallInfo">
-        <div class="nameComponent">
-          <span class="title">CARDHOLDER NAME</span>
-          <span>{{cardInfo.name}}</span>
+      <div class="info">
+        <div class="numberComponent">
+          <StringFormatter :regex="format" :input="cardInfo.number" />
         </div>
-        <div class="dateComponent">
-          <span class="title">VALID THRU</span>
-          <span>{{formatDate(cardInfo.validDate)}}</span>
+        <div class="smallInfo">
+          <div class="nameComponent">
+            <span class="title">CARDHOLDER NAME</span>
+            <span>{{cardInfo.name.toUpperCase()}}</span>
+          </div>
+          <div class="dateComponent">
+            <span class="title">VALID THRU</span>
+            <span>{{formatDate(cardInfo.validDate)}}</span>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
-// import ChipDark from "../assets/chip-dark.svg";
-// import ChipLight from '../assets/chip-light.svg';
-// import BitCoin from '../assets/vendor-bitcoin.svg';
-// import BlockChain from '../assets/vendor-blockchain.svg';
-// import Evil from '../assets/vendor-evil.svg';
-// import Ninja from '../assets/vendor-ninja.svg';
-// import Vue from "vue";
 import StringFormatter from "./StringFormatter";
 
 export default {
   data() {
     return {
+      isHovered: false,
       format: /(\d{0,4})(\d{0,4})(\d{0,4})(\d{0,4})/
     };
   },
   components: {
     StringFormatter
-    // ChipDark
-    //   ChipLight,
-    //   BitCoin,
-    //   BlockChain,
-    //   Evil,
-    //   Ninja
+  },
+  computed: {
+    getVendorData() {
+      // console.log(this.$root.vendors[this.cardInfo.vendor].chipUrl);
+      let data = this.$root.vendors[this.cardInfo.vendor];
+      return {
+        backgroundImage: `linear-gradient(to right,rgb(${
+          data.backgroundColor.red
+        },${data.backgroundColor.green},${data.backgroundColor.blue}),rgb(${data
+          .backgroundColor.red + 40},${data.backgroundColor.green + 40},${data
+          .backgroundColor.blue + 40})`,
+        color: `rgb(${data.textColor.red},${data.textColor.green},${data.textColor.blue})`
+      };
+    }
   },
   methods: {
-    getChip() {
-      return require("../assets/chip-light.svg");
+    enter() {
+      this.isHovered = true;
+      console.log("Enter: " + this.isHovered);
+      console.log(this);
     },
-    getVendor() {
-      return require("../assets/vendor-" + this.cardInfo.vendor + ".svg");
+    exit() {
+      this.isHovered = false;
+      console.log("Exit: " + this.isHovered);
     },
     setActive() {
-      console.log("1");
-      this.$root.setActive(this.cardInfo.id);
+      if (this.cardInStack) this.$root.setActive(this.cardInfo.id);
     },
     formatDate(valid) {
       return valid.substring(0, 2) + "/" + valid.substring(2, 4);
@@ -92,43 +106,36 @@ export default {
       }
       return valid;
     }
-    // checkNumber(valid) {
-    //   if (valid.length > 16) return "Ileagal";
-    //   return valid;
-    // }
   },
-  computed: {},
   beforeMount() {},
   props: {
     cardInfo: Object,
     position: Object,
-    positionData: Object
+    positionData: Number,
+    title: String,
+    cardInStack: Boolean
   }
 };
 </script>
 <style lang="scss">
-.bitcoin {
-  background: rgb(248, 162, 34);
+.cardHolder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
-.blockchain {
-  background: rgb(117, 51, 162);
-  color: white;
+.cardDescritpion {
+  text-align: center;
+  color: gray;
 }
-.evil {
-  background: rgb(209, 24, 24);
-  color: white;
-}
-.ninja {
-  background: rgb(0, 0, 0);
-  color: white;
-}
+
 .card {
   /* background-color: yellow; */
   word-break: break-all;
   padding: 1rem;
-  margin: 0 auto;
+  margin: auto auto;
   border-radius: 10px;
-  max-height: 250px;
+  height: 250px;
   width: 350px;
   display: grid;
   grid-template-rows: repeat(2, 1fr);
@@ -178,7 +185,12 @@ export default {
   font-size: 0.6rem;
   /* background-color: lightseagreen; */
 }
-.name {
-  /* background-color: sienna; */
+
+.highlighted {
+  transform: scale(1.05);
+  transition: transform 1s;
+  // position: absolute;
+  // outline: groove black 1px;
+  border: 5px solid black;
 }
 </style>

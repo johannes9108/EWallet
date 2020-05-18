@@ -1,8 +1,8 @@
 <template>
   <div class="home">
     <Top title="E wallet" />
-    <Card :cardInfo="getActiveCard" v-bind:style="{'box-shadow': '0px 0px 10px gray'}" />
-    <CardStack ref="stack" />
+    <Card title="Active Card" :cardInfo="getActiveCard" />
+    <CardStack />
     <router-link :to="{name: 'AddCard'}">
       <button>
         <h2>ADD A NEW CARD</h2>
@@ -26,7 +26,7 @@ export default {
   },
   computed: {
     getActiveCard() {
-      return this.$root.data.find(val => val.id == this.$root.activeId);
+      return this.$root.activeCard;
     }
   },
   beforeMount() {}
@@ -34,12 +34,12 @@ export default {
 </script>
 <style lang="scss" scoped>
 .home {
-  margin: auto;
+  // margin: auto;
   padding: 0.5rem;
   gap: 1rem;
   height: 100vh;
   display: grid;
-  grid-template-rows: 1fr 3fr 3fr 0.8fr;
+  grid-template-rows: 1fr 3fr 500px 0.8fr;
 }
 
 a {
@@ -50,11 +50,11 @@ a {
   align-items: center;
   border: black 1px solid;
   border-radius: 15px;
-
-  button {
-    margin: auto;
-    background-color: transparent;
-    border: none;
-  }
+}
+button {
+  background: red;
+  margin: 0 auto;
+  background-color: transparent;
+  border: none;
 }
 </style>

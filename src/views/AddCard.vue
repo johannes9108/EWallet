@@ -1,7 +1,7 @@
 <template>
   <div class="addCard">
     <Top title="ADD A NEW BANK CARD" />
-    <Card :cardInfo="placeHolder" v-bind:style="{'box-shadow': '0px 0px 10px gray'}" />
+    <Card title="New Card" :cardInfo="placeHolder" />
     <CardForm :cardValues="placeHolder" />
   </div>
 </template>
@@ -18,7 +18,7 @@ export default {
         name: "",
         validDate: "",
         ccv: "",
-        vendor: "bitcoin"
+        vendor: 0
       }
     };
   },
@@ -30,9 +30,6 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-h1 {
-  font-size: 1.5rem;
-}
 .addCard {
   // border: 1px solid black;
   margin: auto;
@@ -40,7 +37,6 @@ h1 {
   gap: 1rem;
   height: 100vh;
   display: grid;
-
   grid-template-rows: 1fr 3fr 3fr;
 }
 </style>

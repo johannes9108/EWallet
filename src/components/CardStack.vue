@@ -1,13 +1,12 @@
 <template>
-  <div class="cardStack">
-    <!-- :positionData="{index, height}" -->
+  <div class="cardStack" :style="{gridAutoRows: gap}">
     <Card
-      v-for="(card,index) in this.$root.filteredData(this.$root.activeId)"
+      :style="{zIndex: index}"
+      :cardInStack="true"
+      v-for="(card,index) in this.$root.data"
       v-bind:key="card.id"
       :cardInfo="card"
-      v-bind:style="{position: 'absolute', top: `${index*30}px`}"
     />
-    <!-- :position="cardsPos[cardsPosIndex++]" -->
   </div>
 </template>
 <script>
@@ -19,42 +18,25 @@ export default {
   data() {
     return {
       items: this.$root.data.length,
-      clientHeight: 0
+      gap: `${4 - 0.2 * this.$root.data.length}rem`
     };
   },
   methods: {},
-  created() {
-    //  let height = this.$el.clientHeight;
-    //   console.log("Height: " + height);
-    //   let distance = height / this.items;
-    //   console.log("Distance: " + distance);
-    // this.height = getStackSize
-  },
+  created() {},
 
   computed: {},
 
-  props: {
-    // stackHeight: Number
-  }
+  props: {}
 };
 </script>
 <style lang="scss" scoped>
 .cardStack {
-  border-radius: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  // display: grid;
-  // grid-template-rows: auto;
-  // margin: 0 auto;
-  // background-color: red;
+  display: grid;
   overflow: auto;
+  -webkit-scrollbar: none;
   position: relative;
 }
-.cardStack::after {
-  // content: "";
-  // display: block;
-  // padding-bottom: 100%;
+.cardStack::-webkit-scrollbar {
+  display: none;
 }
 </style>
