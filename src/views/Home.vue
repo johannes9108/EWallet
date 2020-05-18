@@ -2,9 +2,11 @@
   <div class="home">
     <Top title="E wallet" />
     <Card :cardInfo="getActiveCard" v-bind:style="{'box-shadow': '0px 0px 10px gray'}" />
-    <CardStack />
+    <CardStack ref="stack" />
     <router-link :to="{name: 'AddCard'}">
-      <button>Add a new card</button>
+      <button>
+        <h2>ADD A NEW CARD</h2>
+      </button>
     </router-link>
   </div>
 </template>
@@ -26,21 +28,22 @@ export default {
     getActiveCard() {
       return this.$root.data.find(val => val.id == this.$root.activeId);
     }
-  }
+  },
+  beforeMount() {}
 };
 </script>
 <style lang="scss" scoped>
 .home {
+  margin: auto;
   padding: 0.5rem;
   gap: 1rem;
   height: 100vh;
   display: grid;
-  grid-template-rows: 1fr 3fr 3fr 1fr;
+  grid-template-rows: 1fr 3fr 3fr 0.8fr;
 }
 
-.cardStack {
-}
 a {
+  display: block;
   text-decoration: none;
   display: flex;
   justify-content: center;
@@ -49,6 +52,7 @@ a {
   border-radius: 15px;
 
   button {
+    margin: auto;
     background-color: transparent;
     border: none;
   }

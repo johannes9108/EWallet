@@ -2,46 +2,50 @@
   "data": [
     {
       "id": 1,
-      "cardnumber": 1234567891011123,
+      "number": "1234567891234567",
       "name": "Johannes Hedman",
-      "validDate": {
-        "month": 12,
-        "year": 22
-      },
-      "ccv": 123,
+      "validDate": "1222",
+      "ccv": "123",
       "vendor": "ninja"
     },
     {
       "id": 2,
-      "cardnumber": 1234567891011123,
+      "number": "1111222233334444",
       "name": "Christoffer Wallenberg",
-      "validDate": {
-        "month": 12,
-        "year": 22
-      },
-      "ccv": 123,
+      "validDate": "1222",
+      "ccv": "123",
       "vendor": "bitcoin"
     },
     {
       "id": 3,
-      "cardnumber": 1234567891011123,
+      "number": "5555666677778888",
       "name": "Christoffer Hedman",
-      "validDate": {
-        "month": 12,
-        "year": 22
-      },
-      "ccv": 123,
+      "validDate": "1222",
+      "ccv": "123",
       "vendor": "blockchain"
     },
     {
       "id": 4,
-      "cardnumber": 1234567891011123,
+      "number": "9999888877776666",
       "name": "Johannes Wallenberg",
-      "validDate": {
-        "month": 12,
-        "year": 22
-      },
-      "ccv": 123,
+      "validDate": "1222",
+      "ccv": "123",
+      "vendor": "evil"
+    },
+    {
+      "id": 5,
+      "number": "5555666677778888",
+      "name": "Christoffer Hedman",
+      "validDate": "1222",
+      "ccv": "123",
+      "vendor": "blockchain"
+    },
+    {
+      "id": 6,
+      "number": "9999888877776666",
+      "name": "Johannes Wallenberg",
+      "validDate": "1222",
+      "ccv": "123",
       "vendor": "evil"
     }
   ]

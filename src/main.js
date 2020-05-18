@@ -9,6 +9,7 @@ new Vue({
   data() {
     return {
       data: dataFile.data,
+      nextId: 5,
       activeId: 1,
     };
   },
@@ -19,6 +20,9 @@ new Vue({
     },
     setActive(activeId) {
       this.activeId = activeId;
+    },
+    getStackSize() {
+      return this.data.length;
     },
   },
   router,

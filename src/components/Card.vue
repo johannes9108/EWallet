@@ -5,15 +5,23 @@
       <img :src="getVendor()" alt />
     </div>
     <div class="info">
-      <span class="cardNumber">{{cardInfo.cardnumber}}</span>
+      <div class="numberComponent">
+        <span class="title">CARDNUMBER</span>
+        <!-- <span class="cardNumber"> -->
+        <!-- <span>6666</span>
+          <span>6666</span>
+          <span>6666</span>
+        <span>6666</span>-->
+        <StringFormatter :regex="format" :input="cardInfo.number" />
+      </div>
       <div class="smallInfo">
         <div class="nameComponent">
           <span class="title">CARDHOLDER NAME</span>
-          <span class="name">{{cardInfo.name}}</span>
+          <span>{{cardInfo.name}}</span>
         </div>
         <div class="dateComponent">
           <span class="title">VALID THRU</span>
-          <span class="name">{{cardInfo.validDate.month}}/{{cardInfo.validDate.year}}</span>
+          <span>{{formatDate(cardInfo.validDate)}}</span>
         </div>
       </div>
     </div>
@@ -26,11 +34,17 @@
 // import BlockChain from '../assets/vendor-blockchain.svg';
 // import Evil from '../assets/vendor-evil.svg';
 // import Ninja from '../assets/vendor-ninja.svg';
+// import Vue from "vue";
+import StringFormatter from "./StringFormatter";
+
 export default {
   data() {
-    return {};
+    return {
+      format: /(\d{0,4})(\d{0,4})(\d{0,4})(\d{0,4})/
+    };
   },
   components: {
+    StringFormatter
     // ChipDark
     //   ChipLight,
     //   BitCoin,
@@ -48,34 +62,74 @@ export default {
     setActive() {
       console.log("1");
       this.$root.setActive(this.cardInfo.id);
+    },
+    formatDate(valid) {
+      return valid.substring(0, 2) + "/" + valid.substring(2, 4);
+    },
+    formatNumber(valid) {
+      if (valid.length >= 5 && valid.length < 9) {
+        return valid.substring(0, 4) + "-" + valid.substring(4, valid.length);
+      }
+      if (valid.length >= 9 && valid.length < 13) {
+        return (
+          valid.substring(0, 4) +
+          "-" +
+          valid.substring(4, 8) +
+          "-" +
+          valid.substring(8, valid.length)
+        );
+      }
+      if (valid.length >= 13) {
+        return (
+          valid.substring(0, 4) +
+          "-" +
+          valid.substring(4, 8) +
+          "-" +
+          valid.substring(8, 12) +
+          "-" +
+          valid.substring(12, valid.length)
+        );
+      }
+      return valid;
     }
+    // checkNumber(valid) {
+    //   if (valid.length > 16) return "Ileagal";
+    //   return valid;
+    // }
   },
-
+  computed: {},
+  beforeMount() {},
   props: {
     cardInfo: Object,
-    position: Object
+    position: Object,
+    positionData: Object
   }
 };
 </script>
-<style>
+<style lang="scss">
 .bitcoin {
-  background: darkgray;
+  background: rgb(248, 162, 34);
 }
 .blockchain {
-  background: darkred;
+  background: rgb(117, 51, 162);
+  color: white;
 }
 .evil {
-  background: darkgoldenrod;
+  background: rgb(209, 24, 24);
+  color: white;
 }
 .ninja {
-  background: darkblue;
+  background: rgb(0, 0, 0);
   color: white;
 }
 .card {
   /* background-color: yellow; */
+  word-break: break-all;
   padding: 1rem;
+  margin: 0 auto;
   border-radius: 10px;
-  width: 100%;
+  max-height: 250px;
+  width: 350px;
   display: grid;
   grid-template-rows: repeat(2, 1fr);
 }
@@ -86,22 +140,30 @@ export default {
   /* background-color: red; */
 }
 .info {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  overflow: hidden;
+  // flex-direction: column;
+  // justify-content: space-around;
   /* background-color: grey; */
 }
-.cardNumber {
-  font-size: 2rem;
 
-  /* background-color: aquamarine; */
-}
 .smallInfo {
-  display: flex;
-  justify-content: space-between;
+  font-size: 1rem;
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+  overflow: hidden;
+  // justify-content: space-between;
   /* background-color: magenta; */
 }
+.numberComponent {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  /* background-color: wheat; */
+}
 .nameComponent {
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   /* background-color: wheat; */
@@ -113,7 +175,7 @@ export default {
   /* background-color: lightcoral; */
 }
 .title {
-  font-size: 0.7rem;
+  font-size: 0.6rem;
   /* background-color: lightseagreen; */
 }
 .name {
