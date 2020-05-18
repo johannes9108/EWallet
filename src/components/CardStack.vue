@@ -41,12 +41,12 @@ export default {
 <style lang="scss" scoped>
 .cardStack {
   border-radius: 0;
-  // display: flex;
-  // justify-content: center;
-  // align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-  display: grid;
-  grid-template-rows: auto;
+  // display: grid;
+  // grid-template-rows: auto;
   // margin: 0 auto;
   // background-color: red;
   overflow: auto;
