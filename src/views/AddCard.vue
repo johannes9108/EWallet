@@ -1,5 +1,8 @@
 <template>
   <div class="addCard">
+    <div class="buttonHolder">
+      <router-link :to="{name: 'Home'}">Back</router-link>
+    </div>
     <Top title="ADD A NEW BANK CARD" />
     <Card title="New Card" :cardInfo="placeHolder" />
     <CardForm :cardValues="placeHolder" />
@@ -37,6 +40,22 @@ export default {
   gap: 1rem;
   height: 100vh;
   display: grid;
-  grid-template-rows: 1fr 3fr 3fr;
+  grid-template-rows: auto 1fr 3fr 3fr;
+
+  .buttonHolder {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  a {
+    text-decoration: none;
+    text-align: center;
+    // display: block;
+    color: white;
+    background: blacK;
+    border-radius: 10px;
+    // height: 100%;
+    min-width: 20%;
+  }
 }
 </style>

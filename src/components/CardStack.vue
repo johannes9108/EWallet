@@ -3,7 +3,7 @@
     <Card
       :style="{zIndex: index}"
       :cardInStack="true"
-      v-for="(card,index) in this.$root.data"
+      v-for="(card,index) in (this.$root.activeCard)?this.$root.data:this.$root.unFilteredData()"
       v-bind:key="card.id"
       :cardInfo="card"
     />
@@ -31,10 +31,14 @@ export default {
 </script>
 <style lang="scss" scoped>
 .cardStack {
+  padding-top: 12%;
   display: grid;
   overflow: auto;
   -webkit-scrollbar: none;
   position: relative;
+  border-radius: 2%;
+  margin: 0 auto;
+  width: fit-content;
 }
 .cardStack::-webkit-scrollbar {
   display: none;

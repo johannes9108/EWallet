@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <Top title="E wallet" />
-    <Card title="Active Card" :cardInfo="getActiveCard" />
+    <Card title="Active Card" activeCard removable :cardInfo="getActiveCard" />
     <CardStack />
     <router-link :to="{name: 'AddCard'}">
       <button>

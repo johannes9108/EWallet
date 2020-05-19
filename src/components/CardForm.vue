@@ -1,21 +1,45 @@
 <template>
-  <form class="cardForm">
+  <div class="cardForm">
     <div class="inputComponent">
       <span class="title">CARD NUMBER</span>
-      <input type="number" v-model="formValues.number" placeholder="XXXX XXXX XXXX XXXX" />
+      <input
+        id="cardNumber"
+        type="number"
+        v-model="formValues.number"
+        placeholder="XXXX XXXX XXXX XXXX"
+        :style="{errorStyle: incorrectNumber}"
+      />
     </div>
     <div class="inputComponent">
       <span class="title">CARHOLDER NAME</span>
-      <input type="text" v-model="formValues.name" placeholder="FIRSTNAME LASTNAME" />
+      <input
+        id="name"
+        type="text"
+        v-model="formValues.name"
+        placeholder="FIRSTNAME LASTNAME"
+        :style="{errorStyle: incorrectName}"
+      />
     </div>
     <div class="doubleInputRow">
       <div class="inputComponent">
         <span class="title">VALID THRU</span>
-        <input type="number" placeholder="MM/YY" v-model="formValues.validDate" />
+        <input
+          id="validDate"
+          type="number"
+          placeholder="MM/YY"
+          v-model="formValues.validDate"
+          :style="{errorStyle: incorrectDate}"
+        />
       </div>
       <div class="inputComponent">
         <span class="title">CCV</span>
-        <input type="text" v-model="formValues.ccv" placeholder="XXX" />
+        <input
+          id="ccv"
+          type="number"
+          v-model="formValues.ccv"
+          placeholder="XXX"
+          :style="{errorStyle: incorrectCCV}"
+        />
       </div>
     </div>
     <div class="inputComponent">
@@ -31,12 +55,16 @@
     <div class="inputComponent">
       <button @click="checkValues()">Add Card</button>
     </div>
-  </form>
+  </div>
 </template>
 <script>
 export default {
   data() {
     return {
+      incorrectNumber: false,
+      incorrectDate: false,
+      incorrectName: false,
+      incorrectCCV: false,
       formValues: this.cardValues
     };
   },
@@ -49,14 +77,15 @@ export default {
       let incorrectValues = false;
       if (this.formValues.number.length > 16) {
         this.formValues.number = this.formValues.number.slice(0, 16);
+        this.incorrectNumber = true;
         incorrectValues = true;
       }
       if (this.formValues.validDate.length != 4) {
-        this.formValues.validDate = "";
+        this.incorrectDate = true;
         incorrectValues = true;
       }
       if (this.formValues.ccv.length != 3) {
-        this.formValues.ccv = "";
+        this.incorrectCCV = true;
         incorrectValues = true;
       }
       if (incorrectValues) return;
@@ -114,5 +143,8 @@ button {
   background: blacK;
   border-radius: 10px;
   height: 100%;
+}
+.errorStyle {
+  color: red;
 }
 </style>

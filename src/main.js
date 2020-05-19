@@ -16,21 +16,25 @@ new Vue({
     };
   },
   created() {
-    if (this.data.length > 0) {
-      this.activeCard = this.data.find((val) => val.id == this.$root.activeId);
-      this.data = this.filteredData(this.activeId);
-    }
+    // if (this.data.length > 0) {
+    //   this.activeCard = this.data.find((val) => val.id == this.$root.activeId);
+    //   this.data = this.filteredData(this.activeId);
+    // }
   },
   methods: {
-    filteredData(activeId) {
-      return this.data.filter((item) => item.id != activeId);
+    removeItem() {
+      this.activeCard = undefined;
     },
-
+    unFilteredData() {
+      return this.data;
+    },
     setActive(activeId) {
+      console.log("ActiveID = " + activeId);
       let oldActiveCard = this.activeCard;
       let index = this.data.findIndex((item) => item.id == activeId);
       this.activeCard = this.data.find((item) => item.id == activeId);
-      this.data.splice(index, 1, oldActiveCard);
+      if (oldActiveCard != null) this.data.splice(index, 1, oldActiveCard);
+      else this.data.splice(index, 1);
     },
     getStackSize() {
       return this.data.length;

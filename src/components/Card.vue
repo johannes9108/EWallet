@@ -1,39 +1,53 @@
 <template>
-  <div v-bind:class="{cardHolder: title}">
-    <p class="cardDescritpion" v-if="title">{{title}}</p>
-    <div
-      v-bind:class="[isHovered && cardInStack ? 'highlighted':'']"
-      :style="[getVendorData] "
-      class="card"
-      @click="setActive()"
-      @mouseover.capture.stop="enter()"
-      @mouseleave.capture.stop="exit()"
-    >
-      <div class="icons">
-        <img
-          :src="require('@/assets/chip-'+this.$root.vendors[this.cardInfo.vendor].chipType+'.svg')"
-          alt
-        />
-        <img
-          v-bind:src="require('@/assets/vendor-'+this.$root.vendors[this.cardInfo.vendor].name+'.svg')"
-          alt
-        />
-      </div>
-      <div class="info">
-        <div class="numberComponent">
-          <StringFormatter :regex="format" :input="cardInfo.number" />
-        </div>
-        <div class="smallInfo">
-          <div class="nameComponent">
-            <span class="title">CARDHOLDER NAME</span>
-            <span>{{cardInfo.name.toUpperCase()}}</span>
-          </div>
-          <div class="dateComponent">
-            <span class="title">VALID THRU</span>
-            <span>{{formatDate(cardInfo.validDate)}}</span>
+  <div>
+    <div v-if="cardInfo" v-bind:class="{cardHolder: title}">
+      <p class="cardDescritpion" v-if="title">{{title}}</p>
+      <button v-if="removable" @click="removeDialog=true">Delete</button>
+      <div
+        v-bind:class="[isHovered && cardInStack ? 'highlighted':'']"
+        :style="[getVendorData]"
+        class="card"
+        @click="setActive()"
+        @mouseover="enter()"
+        @mouseleave="exit()"
+      >
+        <div class="popup" v-if="activeCard && removeDialog">
+          <p>Sure you want to delete?</p>
+          <div>
+            <button @click="removeItem">Yes</button>
+            <button @click="removeDialog = false">No</button>
           </div>
         </div>
+        <div class="icons">
+          <img
+            :src="require('@/assets/chip-'+this.$root.vendors[this.cardInfo.vendor].chipType+'.svg')"
+            alt
+          />
+          <img
+            v-bind:src="require('@/assets/vendor-'+this.$root.vendors[this.cardInfo.vendor].name+'.svg')"
+            alt
+          />
+        </div>
+        <div class="info">
+          <div class="numberComponent">
+            <StringFormatter :regex="format" :input="cardInfo.number" />
+          </div>
+          <div class="smallInfo">
+            <div class="nameComponent">
+              <span class="title">CARDHOLDER NAME</span>
+              <span>{{cardInfo.name.toUpperCase()}}</span>
+            </div>
+            <div class="dateComponent">
+              <span class="title">VALID THRU</span>
+              <span>{{formatDate(cardInfo.validDate)}}</span>
+            </div>
+          </div>
+        </div>
       </div>
+    </div>
+
+    <div v-else class="empty">
+      <p>No card selected</p>
     </div>
   </div>
 </template>
@@ -43,6 +57,7 @@ import StringFormatter from "./StringFormatter";
 export default {
   data() {
     return {
+      removeDialog: false,
       isHovered: false,
       format: /(\d{0,4})(\d{0,4})(\d{0,4})(\d{0,4})/
     };
@@ -65,14 +80,18 @@ export default {
     }
   },
   methods: {
+    removeItem() {
+      this.removeDialog = false;
+      this.$root.removeItem(this.cardInfo.id);
+    },
     enter() {
       this.isHovered = true;
-      console.log("Enter: " + this.isHovered);
-      console.log(this);
+      // console.log("Enter: " + this.isHovered);
+      // console.log(this);
     },
     exit() {
       this.isHovered = false;
-      console.log("Exit: " + this.isHovered);
+      // console.log("Exit: " + this.isHovered);
     },
     setActive() {
       if (this.cardInStack) this.$root.setActive(this.cardInfo.id);
@@ -109,11 +128,13 @@ export default {
   },
   beforeMount() {},
   props: {
+    removable: Boolean,
     cardInfo: Object,
     position: Object,
     positionData: Number,
     title: String,
-    cardInStack: Boolean
+    cardInStack: Boolean,
+    activeCard: Boolean
   }
 };
 </script>
@@ -130,6 +151,7 @@ export default {
 }
 
 .card {
+  position: relative;
   /* background-color: yellow; */
   word-break: break-all;
   padding: 1rem;
@@ -187,10 +209,36 @@ export default {
 }
 
 .highlighted {
-  transform: scale(1.05);
+  transform: translateY(-1rem);
   transition: transform 1s;
   // position: absolute;
   // outline: groove black 1px;
   border: 5px solid black;
+}
+.empty {
+  background-color: cornflowerblue;
+  height: 250px;
+  width: 350px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+}
+.popup {
+  color: white;
+  display: flex;
+  position: absolute;
+  background: black;
+  width: 100%;
+  height: 100%;
+  opacity: 90%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  button {
+    width: 100px;
+  }
 }
 </style>
