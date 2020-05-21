@@ -101,9 +101,9 @@
     {
       "name": "bitcoin",
       "backgroundColor": {
-        "red": 248,
-        "green": 162,
-        "blue": 34
+        "red": 255,
+        "green": 172,
+        "blue": 65
       },
       "textColor": {
         "red": 0,
@@ -116,9 +116,9 @@
     {
       "name": "blockchain",
       "backgroundColor": {
-        "red": 137,
-        "green": 60,
-        "blue": 189
+        "red": 113,
+        "green": 69,
+        "blue": 219
       },
       "textColor": {
         "red": 255,
@@ -131,9 +131,9 @@
     {
       "name": "evil",
       "backgroundColor": {
-        "red": 209,
-        "green": 24,
-        "blue": 24
+        "red": 215,
+        "green": 40,
+        "blue": 67
       },
       "textColor": {
         "red": 255,
@@ -146,9 +146,9 @@
     {
       "name": "ninja",
       "backgroundColor": {
-        "red": 0,
-        "green": 0,
-        "blue": 0
+        "red": 56,
+        "green": 56,
+        "blue": 56
       },
       "textColor": {
         "red": 255,

@@ -3,43 +3,51 @@
     <div class="inputComponent">
       <span class="title">CARD NUMBER</span>
       <input
+        @focus="incorrectNumber=false"
         id="cardNumber"
         type="number"
         v-model="formValues.number"
         placeholder="XXXX XXXX XXXX XXXX"
-        :style="{errorStyle: incorrectNumber}"
+        :class="{errorStyle: incorrectNumber}"
       />
+      <p v-if="incorrectNumber">Cardnumber requires exactly 16 digits!</p>
     </div>
     <div class="inputComponent">
       <span class="title">CARHOLDER NAME</span>
       <input
+        @focus="incorrectName=false"
         id="name"
         type="text"
         v-model="formValues.name"
         placeholder="FIRSTNAME LASTNAME"
-        :style="{errorStyle: incorrectName}"
+        :class="{errorStyle: incorrectName}"
       />
+      <p v-if="incorrectName">Name can only contain characters A-Ö a-ö!</p>
     </div>
     <div class="doubleInputRow">
       <div class="inputComponent">
         <span class="title">VALID THRU</span>
         <input
+          @focus="incorrectDate=false"
           id="validDate"
           type="number"
           placeholder="MM/YY"
           v-model="formValues.validDate"
-          :style="{errorStyle: incorrectDate}"
+          :class="{errorStyle: incorrectDate}"
         />
+        <p v-if="incorrectDate">4 digits!</p>
       </div>
       <div class="inputComponent">
         <span class="title">CCV</span>
         <input
+          @focus="incorrectCCV=false"
           id="ccv"
           type="number"
           v-model="formValues.ccv"
           placeholder="XXX"
-          :style="{errorStyle: incorrectCCV}"
+          :class="{errorStyle: incorrectCCV}"
         />
+        <p v-if="incorrectCCV">3 digits!</p>
       </div>
     </div>
     <div class="inputComponent">
@@ -77,9 +85,12 @@ export default {
       let incorrectValues = false;
       if (this.formValues.number.length > 16) {
         this.formValues.number = this.formValues.number.slice(0, 16);
-        this.incorrectNumber = true;
         incorrectValues = true;
+      } else if (this.formValues.number.length < 16) {
+        incorrectValues = true;
+        this.incorrectNumber = true;
       }
+
       if (this.formValues.validDate.length != 4) {
         this.incorrectDate = true;
         incorrectValues = true;
@@ -121,6 +132,7 @@ export default {
   gap: 1rem;
 }
 .inputComponent {
+  position: relative;
   padding: 0 0.5rem;
   overflow: hidden;
   display: flex;
@@ -132,6 +144,18 @@ export default {
     border: 1px solid black;
     background: transparent;
     height: 100%;
+  }
+  #CardStack {
+  }
+  p {
+    font-size: 0.8rem;
+    font-style: italic;
+    bottom: 0;
+    left: 1rem;
+    position: absolute;
+    // background-color: white;
+    // border: 1px solid black;
+    color: red;
   }
 }
 .doubleInputRow {
