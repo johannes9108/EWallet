@@ -26,7 +26,7 @@ export default {
   },
   computed: {
     getActiveCard() {
-      return this.$root.activeCard;
+      return this.$store.state.activeCard;
     }
   },
   beforeMount() {}

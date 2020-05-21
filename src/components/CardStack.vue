@@ -3,7 +3,7 @@
     <Card
       :style="{zIndex: index}"
       :cardInStack="true"
-      v-for="(card,index) in (this.$root.activeCard)?this.$root.data:this.$root.unFilteredData()"
+      v-for="(card,index) in (this.$store.state.activeCard)?this.$store.getters.filteredData:this.$store.state.data"
       v-bind:key="card.id"
       :cardInfo="card"
     />
@@ -17,8 +17,8 @@ export default {
   },
   data() {
     return {
-      items: this.$root.data.length,
-      gap: `${4 - 0.2 * this.$root.data.length}rem`
+      items: this.$store.state.data.length,
+      gap: `${4 - 0.2 * this.$store.state.data.length}rem`
     };
   },
   methods: {},

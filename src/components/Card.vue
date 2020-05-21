@@ -2,7 +2,7 @@
   <div>
     <div v-if="cardInfo" v-bind:class="{cardHolder: title}">
       <p class="cardDescritpion" v-if="title">{{title}}</p>
-      <button v-if="removable" @click="removeDialog=true">Delete</button>
+      <button id="deleteButton" v-if="removable" @click="removeDialog=true">&#10007;</button>
       <div
         v-bind:class="[isHovered && cardInStack ? 'highlighted':'']"
         :style="[getVendorData]"
@@ -19,12 +19,14 @@
           </div>
         </div>
         <div class="icons">
+          <!-- :src="require('@/assets/chip-'+this.$root.vendors[this.cardInfo.vendor].chipType+'.svg')" -->
+          <!-- v-bind:src="require('@'+this.$root.vendors[this.cardInfo.vendor].baseUrl +'.svg')" -->
           <img
-            :src="require('@/assets/chip-'+this.$root.vendors[this.cardInfo.vendor].chipType+'.svg')"
+            :src="require('@/assets/chip-'+this.$store.state.vendors[this.cardInfo.vendor].chipType+'.svg')"
             alt
           />
           <img
-            v-bind:src="require('@/assets/vendor-'+this.$root.vendors[this.cardInfo.vendor].name+'.svg')"
+            v-bind:src="require('@/assets/vendor-'+this.$store.state.vendors[this.cardInfo.vendor].name+'.svg')"
             alt
           />
         </div>
@@ -68,7 +70,7 @@ export default {
   computed: {
     getVendorData() {
       // console.log(this.$root.vendors[this.cardInfo.vendor].chipUrl);
-      let data = this.$root.vendors[this.cardInfo.vendor];
+      let data = this.$store.state.vendors[this.cardInfo.vendor];
       return {
         backgroundImage: `linear-gradient(to right,rgb(${
           data.backgroundColor.red
@@ -77,12 +79,15 @@ export default {
           .backgroundColor.blue + 40})`,
         color: `rgb(${data.textColor.red},${data.textColor.green},${data.textColor.blue})`
       };
+    },
+    parseUrl(data) {
+      return data;
     }
   },
   methods: {
     removeItem() {
       this.removeDialog = false;
-      this.$root.removeItem(this.cardInfo.id);
+      this.$store.commit("removeItem", this.cardInfo.id);
     },
     enter() {
       this.isHovered = true;
@@ -94,7 +99,7 @@ export default {
       // console.log("Exit: " + this.isHovered);
     },
     setActive() {
-      if (this.cardInStack) this.$root.setActive(this.cardInfo.id);
+      if (this.cardInStack) this.$store.commit("setActive", this.cardInfo.id);
     },
     formatDate(valid) {
       return valid.substring(0, 2) + "/" + valid.substring(2, 4);
@@ -218,13 +223,20 @@ export default {
 .empty {
   background-color: cornflowerblue;
   height: 250px;
-  width: 350px;
+  max-width: 350px;
   margin: 0 auto;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 5px;
 }
+#deleteButton {
+  background: transparent;
+  border: transparent;
+  color: red;
+  font-size: 1.5rem;
+}
+
 .popup {
   color: white;
   display: flex;

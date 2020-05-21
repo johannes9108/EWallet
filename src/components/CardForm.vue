@@ -54,7 +54,7 @@
       <span class="title">VENDOR</span>
       <select id="Vendors" v-model="formValues.vendor">
         <option
-          v-for="(item,index) in this.$root.vendors"
+          v-for="(item,index) in this.$store.state.vendors"
           :key="item.name"
           :value="index"
         >{{item.name}}</option>
@@ -110,18 +110,8 @@ export default {
         ccv: this.formValues.ccv,
         vendor: this.formValues.vendor
       };
-      this.$root.data.push(newCard);
-      this.$router.push({ name: "Home" });
+      this.$store.commit("addNewCard", newCard);
     }
-    // checkDate(valid) {
-    //   if (valid.length == 4) {
-    //     return valid.substring(0, 2) + "/" + valid.substring(2, 4);
-    //   } else return "Ilegal";
-    // },
-    // checkNumber(valid) {
-    //   if (valid.length > 16) return "Ileagal";
-    //   return valid;
-    // }
   }
 };
 </script>

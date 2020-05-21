@@ -110,7 +110,7 @@
         "green": 0,
         "blue": 0
       },
-      "baseUrl": "../assets/vendor-bitcoin.svg",
+      "baseUrl": "/assets/vendor-bitcoin",
       "chipType": "dark"
     },
     {
@@ -125,7 +125,7 @@
         "green": 255,
         "blue": 255
       },
-      "baseUrl": "../assets/vendor-blockchain.svg",
+      "baseUrl": "/assets/vendor-blockchain",
       "chipType": "light"
     },
     {
@@ -140,7 +140,7 @@
         "green": 255,
         "blue": 255
       },
-      "baseUrl": "../assets/vendor-evil.svg",
+      "baseUrl": "/assets/vendor-evil",
       "chipType": "light"
     },
     {
@@ -155,7 +155,7 @@
         "green": 255,
         "blue": 255
       },
-      "baseUrl": "../assets/vendor-ninja.svg",
+      "baseUrl": "/assets/vendor-ninja",
       "chipType": "light"
     }
   ]
