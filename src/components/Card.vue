@@ -21,14 +21,8 @@
         <div class="icons">
           <!-- :src="require('@/assets/chip-'+this.$root.vendors[this.cardInfo.vendor].chipType+'.svg')" -->
           <!-- v-bind:src="require('@'+this.$root.vendors[this.cardInfo.vendor].baseUrl +'.svg')" -->
-          <img
-            :src="require('@/assets/chip-'+this.$store.state.vendors[this.cardInfo.vendor].chipType+'.svg')"
-            alt
-          />
-          <img
-            v-bind:src="require('@/assets/vendor-'+this.$store.state.vendors[this.cardInfo.vendor].name+'.svg')"
-            alt
-          />
+          <img :src="`${this.$store.state.vendors[this.cardInfo.vendor].chipUrl}`" alt />
+          <img v-bind:src="`${this.$store.state.vendors[this.cardInfo.vendor].baseUrl}`" alt />
         </div>
         <div class="info">
           <div class="numberComponent">
@@ -59,6 +53,7 @@ import StringFormatter from "./StringFormatter";
 export default {
   data() {
     return {
+      dark: "dark",
       removeDialog: false,
       isHovered: false,
       format: /(\d{0,4})(\d{0,4})(\d{0,4})(\d{0,4})/

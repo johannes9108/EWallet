@@ -9,7 +9,7 @@ export default new Vuex.Store({
     data: dataFile.data,
     vendors: dataFile.vendors,
     nextId: 13,
-    activeId: 1,
+
     activeCard: null,
   },
   getters: {
